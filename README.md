@@ -53,21 +53,19 @@ git push -u origin main
 
 이미 다른 곳에서 clone 했다면 `git remote add` 는 생략하고, `git push origin main` 만 사용하면 됩니다.
 
-### 2) 수정 후 매번 푸시 (자동에 가깝게)
+### 2) 완전 자동 푸시 (추천)
 
-**Windows (PowerShell):**
+**Cursor에서 이 폴더를 열면** 파일 감시가 자동으로 켜지고, **저장할 때마다 약 5초 뒤 자동으로 GitHub에 푸시**됩니다.
+
+- 처음 한 번: Cursor가 "이 폴더에서 자동 작업을 실행할까요?" 하면 **허용**을 선택하세요.
+- 자동 실행을 끄려면: `Ctrl+Shift+P` → "Tasks: Manage Automatic Tasks in Folder" → "Disallow" 선택.
+
+**수동으로 감시만 켜려면:** 터미널에서 `.\watch-and-push.ps1` 실행 후 창을 켜 두세요.
+
+### 3) 수동 푸시
 
 ```powershell
 .\sync-to-github.ps1
 ```
 
-**또는 직접:**
-
-```bash
-git add .
-git commit -m "Update from Cursor"
-git push origin main
-```
-
-- Cursor 규칙(`.cursor/rules/github-sync.mdc`)에 따라, 여기서 수정이 끝날 때마다 위 푸시를 실행하면 저장소와 동기화됩니다.
-- 커밋 후 자동 푸시를 쓰려면: `git config core.hooksPath .githooks` 로 훅을 켜 두면, `git commit` 할 때마다 자동으로 `git push` 됩니다.
+또는 `git add .` 후 `git commit` (훅으로 자동 push).
