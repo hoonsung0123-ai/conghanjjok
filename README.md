@@ -26,9 +26,8 @@ npm start
 
 ## 데이터 저장 위치
 
-- 제출 정보: `data/submissions.json`
-- 업로드된 사진: `uploads/` 폴더
-- 게임 결과: `data/game_results.json`
+- **로컬:** 제출 정보 `data/submissions.json`, 사진 `uploads/`, 게임 결과 `data/game_results.json`
+- **Vercel:** 서버리스 환경에서는 `/tmp` 사용 (재배포 시 초기화됨)
 
 ---
 
