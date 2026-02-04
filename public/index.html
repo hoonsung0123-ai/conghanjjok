@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>콩 한쪽 - 짝 찾기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="bg-pattern" aria-hidden="true"></div>
+  <main class="container">
+    <h1 class="title">콩 한쪽</h1>
+    <p class="subtitle">잃어버린 이어폰의 짝을 찾아드려요</p>
+
+    <form id="form" class="form" action="/api/submit" method="POST" enctype="multipart/form-data">
+      <section class="section">
+        <label class="label">무엇을 분실했죠?</label>
+        <select id="device" name="device" required class="select">
+          <option value="">기기를 선택하세요</option>
+          <optgroup label="에어팟">
+            <option value="AirPods 1세대">AirPods 1세대</option>
+            <option value="AirPods 2세대">AirPods 2세대</option>
+            <option value="AirPods 3세대">AirPods 3세대</option>
+            <option value="AirPods 4세대">AirPods 4세대</option>
+            <option value="AirPods Pro 1세대">AirPods Pro 1세대</option>
+            <option value="AirPods Pro 2세대">AirPods Pro 2세대</option>
+            <option value="AirPods Pro 3세대">AirPods Pro 3세대</option>
+            <option value="AirPods Max">AirPods Max</option>
+          </optgroup>
+          <optgroup label="갤럭시 버즈">
+            <option value="Galaxy Buds">Galaxy Buds</option>
+            <option value="Galaxy Buds+">Galaxy Buds+</option>
+            <option value="Galaxy Buds Live">Galaxy Buds Live</option>
+            <option value="Galaxy Buds Pro">Galaxy Buds Pro</option>
+            <option value="Galaxy Buds2">Galaxy Buds2</option>
+            <option value="Galaxy Buds2 Pro">Galaxy Buds2 Pro</option>
+            <option value="Galaxy Buds FE">Galaxy Buds FE</option>
+            <option value="Galaxy Buds3">Galaxy Buds3</option>
+            <option value="Galaxy Buds3 Pro">Galaxy Buds3 Pro</option>
+          </optgroup>
+        </select>
+      </section>
+
+      <section class="section">
+        <label class="label">가지고 있는 쪽은?</label>
+        <div class="side-buttons">
+          <input type="radio" id="sideLeft" name="side" value="왼쪽" required class="side-radio">
+          <label for="sideLeft" class="side-btn">왼쪽</label>
+          <input type="radio" id="sideRight" name="side" value="오른쪽" class="side-radio">
+          <label for="sideRight" class="side-btn">오른쪽</label>
+        </div>
+      </section>
+
+      <section class="section">
+        <label class="label" for="name">이름</label>
+        <input type="text" id="name" name="name" required class="input" placeholder="이름을 입력하세요" autocomplete="name">
+      </section>
+      <section class="section">
+        <label class="label" for="phone">전화번호</label>
+        <input type="tel" id="phone" name="phone" required class="input" placeholder="010-0000-0000" autocomplete="tel">
+      </section>
+      <section class="section">
+        <label class="label" for="email">이메일</label>
+        <input type="email" id="email" name="email" required class="input" placeholder="example@email.com" autocomplete="email">
+      </section>
+
+      <section class="section">
+        <label class="label">가지고 있는 쪽 기기 사진</label>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="photo" name="photo" accept="image/*" required class="upload-input">
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <span class="upload-icon">📷</span>
+            <span>사진을 선택하거나 여기에 끌어다 놓으세요</span>
+          </div>
+          <div class="upload-preview" id="uploadPreview" hidden>
+            <img id="previewImg" src="" alt="미리보기">
+            <span class="upload-filename" id="uploadFilename"></span>
+          </div>
+        </div>
+      </section>
+
+      <button type="submit" id="submitBtn" class="submit-btn" disabled>제출하기</button>
+    </form>
+
+    <div id="message" class="message" role="alert" hidden></div>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>

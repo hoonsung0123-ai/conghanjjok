@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>콩 한쪽 - 운영자</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .admin-title { font-size: 1.25rem; margin: 0; }
+    .admin-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .admin-list { display: flex; flex-direction: column; gap: 16px; }
+    .admin-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .admin-card img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; }
+    .admin-card-info { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+    .admin-card-info strong { color: var(--accent); }
+    .admin-empty { color: var(--text-muted); text-align: center; padding: 40px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="admin-header">
+      <h1 class="admin-title">제출 목록 (운영자)</h1>
+      <a href="index.html" class="admin-link">← 메인으로</a>
+    </div>
+    <div id="list" class="admin-list"></div>
+    <p id="empty" class="admin-empty" hidden>아직 제출된 내역이 없습니다.</p>
+  </main>
+  <script>
+    fetch('/api/submissions')
+      .then(function (r) { return r.json(); })
+      .then(function (items) {
+        var list = document.getElementById('list');
+        var empty = document.getElementById('empty');
+        if (!items.length) {
+          empty.hidden = false;
+          return;
+        }
+        items.reverse().forEach(function (s) {
+          var card = document.createElement('div');
+          card.className = 'admin-card';
+          var img = s.photoFilename
+            ? '<img src="/uploads/' + s.photoFilename + '" alt="기기 사진">'
+            : '<div style="width:100px;height:100px;background:var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:0.8rem;">사진 없음</div>';
+          card.innerHTML =
+            img +
+            '<div class="admin-card-info">' +
+            '<strong>' + (s.device || '-') + ' · ' + (s.side || '-') + '</strong>' +
+            '<span>이름: ' + (s.name || '-') + '</span>' +
+            '<span>전화: ' + (s.phone || '-') + '</span>' +
+            '<span>이메일: ' + (s.email || '-') + '</span>' +
+            '<span style="color:var(--text-muted);font-size:0.8rem;">' + (s.createdAt || '') + '</span>' +
+            '</div>';
+          list.appendChild(card);
+        });
+      })
+      .catch(function () {
+        document.getElementById('empty').textContent = '목록을 불러오지 못했습니다.';
+        document.getElementById('empty').hidden = false;
+      });
+  </script>
+</body>
+</html>

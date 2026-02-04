@@ -1,0 +1,21 @@
+---
+description: 수정 후 GitHub 저장소(hoonsung0123-ai/conghanjjok)로 자동 동기화
+alwaysApply: true
+---
+
+# GitHub 자동 동기화
+
+- 원격 저장소: **https://github.com/hoonsung0123-ai/conghanjjok.git**
+- Cursor에서 이 프로젝트의 **파일을 수정했다면**, 작업을 마친 뒤 반드시 GitHub에 푸시한다.
+
+## 에이전트(AI) 동작
+
+- 이 프로젝트에서 코드/설정을 **수정한 뒤 응답을 마무리할 때**, 터미널에서 다음을 실행해 저장소에 반영한다:
+  - `cd c:\Users\82109\conghanjjok && .\sync-to-github.ps1`
+  - 또는 Git이 PATH에 있으면: `git add . && git commit -m "Update from Cursor" && git push origin main`
+- Git이 설치되어 있지 않거나 push가 실패하면, 사용자에게 "Git 설치 후 프로젝트 폴더에서 .\sync-to-github.ps1 실행" 안내만 한다.
+
+## 사용자 수동 동기화
+
+- **한 번만 설정:** `.\setup-git-remote.ps1` 로 원격 추가 및 훅 설정.
+- **수정 후 푸시:** `.\sync-to-github.ps1` 또는 `git add . && git commit -m "메시지" && git push origin main`
