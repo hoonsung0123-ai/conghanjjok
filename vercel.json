@@ -2,5 +2,14 @@
   "version": 2,
   "framework": null,
   "buildCommand": "echo build",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/", "destination": "/A/index.html" },
+    { "source": "/games", "destination": "/B/index.html" },
+    { "source": "/games/(.*)", "destination": "/B/$1" },
+    { "source": "/css/(.*)", "destination": "/A/css/$1" },
+    { "source": "/js/(.*)", "destination": "/A/js/$1" },
+    { "source": "/images/(.*)", "destination": "/A/images/$1" },
+    { "source": "/admin.html", "destination": "/A/admin.html" }
+  ]
 }
