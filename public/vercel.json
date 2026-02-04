@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "rewrites": [
-    { "source": "/api/submissions", "destination": "/api/submissions" },
-    { "source": "/api/submit", "destination": "/api/submit" },
-    { "source": "/api/game-results", "destination": "/api/game-results" },
-    { "source": "/uploads/(.*)", "destination": "/api/uploads/$1" }
-  ]
-}

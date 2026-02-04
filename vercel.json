@@ -1,12 +1,6 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "echo static",
-  "outputDirectory": ".",
-  "rewrites": [
-    { "source": "/api/submissions", "destination": "/api/submissions" },
-    { "source": "/api/submit", "destination": "/api/submit" },
-    { "source": "/api/game-results", "destination": "/api/game-results" },
-    { "source": "/uploads/(.*)", "destination": "/api/uploads/$1" }
-  ]
+  "buildCommand": "",
+  "outputDirectory": "."
 }
