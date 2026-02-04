@@ -12,11 +12,15 @@ function read() {
 }
 
 module.exports = (req, res) => {
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  if (req.method !== 'GET') {
-    res.status(405).end();
-    return;
+  try {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    if (req.method !== 'GET') {
+      res.status(405).end();
+      return;
+    }
+    res.json(read());
+  } catch (e) {
+    res.status(500).json([]);
   }
-  res.json(read());
 };

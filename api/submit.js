@@ -19,13 +19,14 @@ function writeSubmissions(arr) {
 }
 
 module.exports = (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
-  }
+  try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
+    }
 
-  const form = formidable({
+    const form = formidable({
     maxFileSize: 5 * 1024 * 1024,
     uploadDir: UPLOADS_DIR,
     keepExtensions: true,
@@ -75,4 +76,7 @@ module.exports = (req, res) => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.status(200).json({ success: true, id: submission.id });
   });
+  } catch (e) {
+    res.status(500).json({ error: '제출 처리 중 오류가 발생했습니다.' });
+  }
 };
