@@ -20,21 +20,38 @@ const MIME = {
 
 function serveStatic(req, res) {
   let urlPath = (req.url || '/').split('?')[0];
-  if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
+  
+  let filePath;
+  
+  // /games/* 요청 -> B 폴더
+  if (urlPath.startsWith('/games')) {
+    let subPath = urlPath.replace('/games', '') || '/';
+    if (subPath === '/' || subPath === '') subPath = '/index.html';
+    filePath = path.normalize(path.join(__dirname, 'B', subPath));
+  } 
+  // 그 외 요청 -> A 폴더
+  else {
+    if (urlPath === '/' || urlPath === '') urlPath = '/index.html';
+    filePath = path.normalize(path.join(__dirname, 'A', urlPath));
+  }
 
-  const filePath = path.normalize(path.join(__dirname, urlPath));
+  // 보안: 디렉터리 이탈 방지
   if (!filePath.startsWith(__dirname)) {
-    res.status(403).end();
+    res.statusCode = 403;
+    res.end();
     return;
   }
 
   if (!fs.existsSync(filePath)) {
-    res.status(404).end();
+    res.statusCode = 404;
+    res.end();
     return;
   }
+  
   const stat = fs.statSync(filePath);
   if (!stat.isFile()) {
-    res.status(404).end();
+    res.statusCode = 404;
+    res.end();
     return;
   }
 

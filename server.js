@@ -63,7 +63,12 @@ app.use((req, res, next) => {
   if (p === '/server.js' || p === '/server.py' || p === '/package.json') return res.status(404).end();
   next();
 });
-app.use(express.static(__dirname, { index: 'index.html' }));
+
+// A 폴더: 콩한쪽 웹사이트 (루트 /)
+app.use('/', express.static(path.join(__dirname, 'A'), { index: 'index.html' }));
+
+// B 폴더: 미니게임 웹사이트 (/games/)
+app.use('/games', express.static(path.join(__dirname, 'B'), { index: 'index.html' }));
 
 app.post('/api/submit', upload.single('photo'), (req, res) => {
   try {

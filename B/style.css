@@ -1,0 +1,393 @@
+/* 콩한쪽 통일 디자인: 밝고 알록달록한 스타일 */
+:root {
+  --bg: #fefce8;
+  --surface: #ffffff;
+  --border: #e8e6e1;
+  --text: #1c1917;
+  --text-muted: #57534e;
+  --accent: #65a30d;
+  --accent-hover: #84cc16;
+  --accent-soft: rgba(101, 163, 13, 0.15);
+  --error: #dc2626;
+  --radius: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-full: 9999px;
+  --font: 'Noto Sans KR', -apple-system, sans-serif;
+  /* 알록달록 */
+  --coral: #fb7185;
+  --mint: #5eead4;
+  --lavender: #a78bfa;
+  --sunny: #fde047;
+  --sky: #7dd3fc;
+  --peach: #fdba74;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: linear-gradient(160deg, #fefce8 0%, #ecfdf5 30%, #f5f3ff 60%, #fefce8 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 배경 패턴 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('images/airpod-bg.png');
+  background-repeat: repeat;
+  background-size: 120px 120px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.genius-wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  padding-top: 8px;
+}
+
+.genius-label {
+  position: absolute;
+  top: -20px;
+  left: 12px;
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--lavender);
+  opacity: 0.9;
+}
+
+#app {
+  width: 100%;
+  max-width: 440px;
+}
+
+.screen {
+  background: var(--surface);
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  text-align: center;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,0.9),
+    0 4px 24px rgba(167, 139, 250, 0.12),
+    0 12px 48px rgba(126, 211, 252, 0.15);
+}
+
+.screen.hidden { display: none !important; }
+
+.title {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--lavender), var(--coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--lavender), var(--coral));
+  margin: 10px auto 0;
+  border-radius: var(--radius-full);
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.prompt {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* 버튼 공통 */
+.btn {
+  padding: 14px 32px;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--lavender) 0%, var(--coral) 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.35);
+}
+
+.btn.primary:hover {
+  box-shadow: 0 6px 24px rgba(251, 113, 133, 0.4);
+}
+
+.btn.next {
+  margin-top: 18px;
+  background: transparent;
+  color: var(--lavender);
+  border: 2px solid var(--lavender);
+}
+
+.btn.next:hover {
+  background: rgba(167, 139, 250, 0.1);
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.2);
+}
+
+.btn.stop {
+  margin-top: 14px;
+  background: linear-gradient(135deg, var(--coral) 0%, #f43f5e 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(251, 113, 133, 0.35);
+}
+
+/* 가위바위보 */
+.rps-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.rps-btn {
+  padding: 16px 24px;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(180deg, #fefce8 0%, #f1f5f9 100%);
+  color: var(--text);
+  border: 2px solid var(--sky);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rps-btn:hover {
+  border-color: var(--lavender);
+  background: rgba(167, 139, 250, 0.1);
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 사다리 */
+.ladder-wrap {
+  margin: 20px auto;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.ladder-wrap.hidden {
+  display: none !important;
+}
+
+.ladder-choose {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.ladder-num-btn {
+  padding: 14px 28px;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(180deg, #fefce8 0%, #f1f5f9 100%);
+  color: var(--text);
+  border: 2px solid var(--peach);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ladder-num-btn:hover {
+  border-color: var(--coral);
+  background: rgba(251, 113, 133, 0.1);
+  box-shadow: 0 4px 16px rgba(253, 186, 116, 0.25);
+  transform: translateY(-2px);
+}
+
+.ladder-svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.ladder-result-box {
+  margin-top: 14px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.ladder-result-box.hit {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.25) 0%, rgba(134, 239, 172, 0.2) 100%);
+  color: #0f766e;
+  border: 2px solid var(--mint);
+}
+
+.ladder-result-box.miss {
+  background: rgba(251, 113, 133, 0.15);
+  color: #be123c;
+  border: 2px solid var(--coral);
+}
+
+#game2Result .ladder-result-box {
+  padding: 8px 18px;
+  font-size: 0.95rem;
+}
+
+/* 제비뽑기 */
+.sticks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stick {
+  width: 56px;
+  height: 100px;
+  background: linear-gradient(180deg, #fefce8 0%, #f1f5f9 100%);
+  border: 2px solid var(--sunny);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.stick:hover {
+  border-color: var(--lavender);
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.2);
+  transform: translateY(-2px);
+}
+
+.stick.revealed { cursor: default; }
+.stick.hit {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.3) 0%, rgba(134, 239, 172, 0.25) 100%);
+  border-color: var(--mint);
+  color: #0f766e;
+}
+.stick.miss {
+  background: rgba(251, 113, 133, 0.15);
+  border-color: var(--coral);
+  color: #be123c;
+}
+
+/* 스톱워치 */
+.stopwatch {
+  font-size: 3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 20px 0;
+  background: linear-gradient(90deg, var(--lavender), var(--coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 카드 */
+.cards-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.card {
+  width: 52px;
+  height: 72px;
+  background: linear-gradient(145deg, #fefce8 0%, #f1f5f9 100%);
+  border: 2px solid var(--sky);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  border-color: var(--lavender);
+  box-shadow: 0 4px 16px rgba(167, 139, 250, 0.2);
+  transform: translateY(-2px);
+}
+
+.card.flipped {
+  cursor: default;
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.3) 0%, rgba(134, 239, 172, 0.25) 100%);
+  border-color: var(--mint);
+  color: #0f766e;
+}
+
+.card.chosen {
+  box-shadow: 0 0 0 3px var(--lavender), 0 4px 20px rgba(167, 139, 250, 0.3);
+}
+
+.result-text {
+  margin: 16px 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.done-msg {
+  margin: 16px 0;
+  color: var(--text-muted);
+}
+
+.done-summary {
+  text-align: left;
+  margin-top: 20px;
+  padding: 18px;
+  background: linear-gradient(180deg, #fefce8 0%, #f8fafc 100%);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.done-summary strong {
+  color: var(--lavender);
+}
