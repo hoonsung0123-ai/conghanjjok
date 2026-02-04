@@ -1,8 +1,5 @@
 {
   "version": 2,
-  "framework": null,
-  "buildCommand": "echo static",
-  "outputDirectory": ".",
   "rewrites": [
     { "source": "/api/submissions", "destination": "/api/submissions" },
     { "source": "/api/submit", "destination": "/api/submit" },

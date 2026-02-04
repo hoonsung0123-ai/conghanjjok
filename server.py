@@ -9,7 +9,7 @@ from urllib.parse import parse_qs, urlparse
 
 PORT = 3000
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PUBLIC_DIR = os.path.join(BASE_DIR, "public")
+PUBLIC_DIR = BASE_DIR
 DATA_DIR = os.path.join(BASE_DIR, "data")
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
 SUBMISSIONS_FILE = os.path.join(DATA_DIR, "submissions.json")
@@ -77,7 +77,7 @@ def parse_multipart(body, boundary):
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=PUBLIC_DIR, **kwargs)
+        super().__init__(*args, directory=BASE_DIR, **kwargs)
 
     def do_GET(self):
         if self.path == "/api/submissions":

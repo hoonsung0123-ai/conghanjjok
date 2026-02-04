@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submissions.json');
+const GAME_RESULTS_FILE = path.join(DATA_DIR, 'game_results.json');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
@@ -47,8 +48,22 @@ function writeSubmissions(arr) {
   fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(arr, null, 2), 'utf8');
 }
 
+function readGameResults() {
+  try {
+    return JSON.parse(fs.readFileSync(GAME_RESULTS_FILE, 'utf8'));
+  } catch { return []; }
+}
+function writeGameResults(arr) {
+  fs.writeFileSync(GAME_RESULTS_FILE, JSON.stringify(arr, null, 2), 'utf8');
+}
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  const p = req.path;
+  if (p === '/server.js' || p === '/server.py' || p === '/package.json') return res.status(404).end();
+  next();
+});
+app.use(express.static(__dirname, { index: 'index.html' }));
 
 app.post('/api/submit', upload.single('photo'), (req, res) => {
   try {
@@ -84,6 +99,30 @@ app.post('/api/submit', upload.single('photo'), (req, res) => {
 app.get('/api/submissions', (req, res) => {
   const submissions = readSubmissions();
   res.json(submissions);
+});
+
+app.get('/api/game-results', (req, res) => {
+  res.json(readGameResults());
+});
+app.post('/api/game-results', (req, res) => {
+  try {
+    const payload = req.body;
+    const record = {
+      id: Date.now(),
+      game1: payload.game1,
+      game2: payload.game2,
+      game3: payload.game3,
+      game4: payload.game4,
+      game5: payload.game5,
+      completedAt: payload.completedAt
+    };
+    const data = readGameResults();
+    data.push(record);
+    writeGameResults(data);
+    res.json({ success: true, id: record.id });
+  } catch (e) {
+    res.status(400).json({ error: 'Invalid JSON' });
+  }
 });
 
 app.get('/uploads/:filename', (req, res) => {

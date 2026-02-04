@@ -2,7 +2,6 @@
   "name": "conghanjjok",
   "version": "1.0.0",
   "description": "콩 한쪽 - 에어팟/갤럭시 버즈 짝 찾기",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"

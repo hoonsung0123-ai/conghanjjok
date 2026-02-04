@@ -29,6 +29,10 @@ npm start
 - **로컬:** 제출 정보 `data/submissions.json`, 사진 `uploads/`, 게임 결과 `data/game_results.json`
 - **Vercel:** 서버리스 환경에서는 `/tmp` 사용 (재배포 시 초기화됨)
 
+### Vercel 배포
+
+저장소를 Vercel에 연결하면 **별도 설정 없이** 배포됩니다. 루트의 `index.html`, `api/` 서버리스 함수, `vercel.json` 설정으로 정적 사이트와 API가 함께 배포됩니다. (데이터는 `/tmp` 사용, 재배포 시 초기화됨)
+
 ---
 
 ## GitHub 저장소 동기화

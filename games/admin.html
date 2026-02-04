@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게임 결과 - 운영자</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-title { margin-bottom: 20px; font-size: 1.3rem; }
+    .admin-list { text-align: left; }
+    .result-block {
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .result-block h3 { margin: 0 0 8px; font-size: 1rem; color: #e94560; }
+    .back-link { display: inline-block; margin-bottom: 16px; color: #7dd3fc; }
+  </style>
+</head>
+<body>
+  <div id="app" class="screen">
+    <a href="index.html" class="back-link">← 게임으로</a>
+    <h1 class="admin-title">게임 결과 목록 (운영자)</h1>
+    <div id="list" class="admin-list"></div>
+    <p id="empty" style="color:var(--muted);" hidden>아직 제출된 결과가 없습니다.</p>
+  </div>
+  <script>
+    fetch('/api/game-results')
+      .then(function (r) { return r.json(); })
+      .then(function (items) {
+        var list = document.getElementById('list');
+        var empty = document.getElementById('empty');
+        if (!items.length) {
+          empty.hidden = false;
+          return;
+        }
+        items.reverse().forEach(function (r) {
+          var block = document.createElement('div');
+          block.className = 'result-block';
+          var g1 = r.game1 ? r.game1.userChoice : '-';
+          var g2 = r.game2 ? (r.game2.start + '번→' + r.game2.result) : '-';
+          var g3 = r.game3 ? (r.game3.result) : '-';
+          var g4 = r.game4 ? (r.game4.recordedSeconds + '초') : '-';
+          var g5 = r.game5 ? r.game5.drawn : '-';
+          block.innerHTML =
+            '<h3>제출 시각: ' + (r.completedAt || '') + '</h3>' +
+            '1. 가위바위보(뽑은 것): ' + g1 + '<br>' +
+            '2. 사다리: ' + g2 + '<br>' +
+            '3. 제비뽑기: ' + g3 + '<br>' +
+            '4. 10초 맞추기: ' + g4 + '<br>' +
+            '5. 트럼프 카드: ' + g5;
+          list.appendChild(block);
+        });
+      })
+      .catch(function () {
+        document.getElementById('empty').textContent = '목록을 불러오지 못했습니다.';
+        document.getElementById('empty').hidden = false;
+      });
+  </script>
+</body>
+</html>

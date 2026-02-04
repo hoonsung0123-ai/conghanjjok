@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미니 게임</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="genius-wrap">
+    <p class="genius-label">GAME</p>
+  <div id="app">
+    <!-- 게임 1: 가위바위보 -->
+    <section id="game1" class="screen">
+      <h1 class="title">첫 번째 Game</h1>
+      <div class="game1-start" id="game1Start">
+        <button type="button" class="btn primary" id="game1StartBtn">스타트</button>
+      </div>
+      <div class="game1-play" id="game1Play" hidden>
+        <p class="prompt">가위, 바위, 보 중 하나를 선택하세요</p>
+        <div class="rps-buttons">
+          <button type="button" class="rps-btn" data-choice="가위">✌️ 가위</button>
+          <button type="button" class="rps-btn" data-choice="바위">✊ 바위</button>
+          <button type="button" class="rps-btn" data-choice="보">✋ 보</button>
+        </div>
+        <p id="game1Result" class="result-text" hidden></p>
+        <button type="button" class="btn next" id="game1Next" hidden>다음 게임으로!</button>
+      </div>
+    </section>
+
+    <!-- 게임 2: 사다리타기 -->
+    <section id="game2" class="screen" hidden>
+      <h1 class="title">두 번째 Game</h1>
+      <div class="game2-start" id="game2Start">
+        <button type="button" class="btn primary" id="game2StartBtn">스타트</button>
+      </div>
+      <div class="game2-play" id="game2Play" hidden>
+        <p class="prompt ladder-prompt-choose" id="game2PromptChoose">1번부터 4번까지 중 하나를 선택하세요</p>
+        <div class="ladder-choose" id="ladderChoose">
+          <button type="button" class="ladder-num-btn" data-num="1">1번</button>
+          <button type="button" class="ladder-num-btn" data-num="2">2번</button>
+          <button type="button" class="ladder-num-btn" data-num="3">3번</button>
+          <button type="button" class="ladder-num-btn" data-num="4">4번</button>
+        </div>
+        <div class="ladder-wrap hidden" id="ladderWrap"></div>
+        <p id="game2Result" class="result-text" hidden></p>
+        <button type="button" class="btn next" id="game2Next" hidden>다음 게임으로!</button>
+      </div>
+    </section>
+
+    <!-- 게임 3: 제비뽑기 -->
+    <section id="game3" class="screen" hidden>
+      <h1 class="title">세 번째 Game</h1>
+      <div class="game3-start" id="game3Start">
+        <button type="button" class="btn primary" id="game3StartBtn">스타트</button>
+      </div>
+      <div class="game3-play" id="game3Play" hidden>
+        <p class="prompt">제비를 뽑으세요 (6개 중 3개 꽝, 3개 합격)</p>
+        <div class="sticks" id="game3Sticks"></div>
+        <p id="game3Result" class="result-text" hidden></p>
+        <button type="button" class="btn next" id="game3Next" hidden>다음 게임으로!</button>
+      </div>
+    </section>
+
+    <!-- 게임 4: 10초 맞추기 -->
+    <section id="game4" class="screen" hidden>
+      <h1 class="title">네 번째 Game</h1>
+      <p class="subtitle">10초를 맞춰보자!</p>
+      <div class="game4-start" id="game4Start">
+        <button type="button" class="btn primary" id="game4StartBtn">스타트</button>
+      </div>
+      <div class="game4-play" id="game4Play" hidden>
+        <div class="stopwatch" id="stopwatch">0.00</div>
+        <button type="button" class="btn stop" id="game4StopBtn">Stop</button>
+        <p id="game4Result" class="result-text" hidden></p>
+        <button type="button" class="btn next" id="game4Next" hidden>다음 게임으로!</button>
+      </div>
+    </section>
+
+    <!-- 게임 5: 트럼프 카드 -->
+    <section id="game5" class="screen" hidden>
+      <h1 class="title">다섯 번째 Game</h1>
+      <div class="game5-start" id="game5Start">
+        <button type="button" class="btn primary" id="game5StartBtn">스타트</button>
+      </div>
+      <div class="game5-play" id="game5Play" hidden>
+        <p class="prompt">뒤집힌 카드 중 하나를 선택하세요</p>
+        <div class="cards-wrap" id="game5Cards"></div>
+        <p id="game5Result" class="result-text" hidden></p>
+        <button type="button" class="btn next" id="game5Next" hidden>다음으로!</button>
+      </div>
+    </section>
+
+    <!-- 완료 & 전송 -->
+    <section id="gameDone" class="screen" hidden>
+      <h1 class="title">모든 게임 완료!</h1>
+      <p id="doneMessage" class="done-msg">결과를 운영자에게 전송 중입니다...</p>
+      <div id="doneSummary" class="done-summary" hidden></div>
+    </section>
+  </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

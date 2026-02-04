@@ -1,9 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const url = require('url');
 
-const UPLOADS = '/tmp/uploads';
-if (!fs.existsSync(UPLOADS)) fs.mkdirSync(UPLOADS, { recursive: true });
+const UPLOADS_DIR = path.join('/tmp', 'uploads');
 
 module.exports = (req, res) => {
   try {
@@ -11,23 +9,23 @@ module.exports = (req, res) => {
       res.status(405).end();
       return;
     }
-    const pathname = url.parse(req.url || '', true).pathname || '';
-    const match = pathname.match(/\/api\/uploads\/(.+)$/) || pathname.match(/\/uploads\/(.+)$/);
-    const filename = (match ? match[1] : '').replace(/\.\./g, '').split('/')[0];
-    if (!filename) {
-      res.status(404).end();
+    const slug = req.query.slug;
+    const filename = Array.isArray(slug) ? slug.join('/') : (slug || '');
+    if (!filename || filename.includes('..')) {
+      res.status(400).end();
       return;
     }
-    const file = path.join(UPLOADS, filename);
-    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    const filePath = path.join(UPLOADS_DIR, path.basename(filename));
+    if (!fs.existsSync(filePath)) {
       res.status(404).end();
       return;
     }
     const ext = path.extname(filename).toLowerCase();
     const types = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.gif': 'image/gif', '.webp': 'image/webp' };
     res.setHeader('Content-Type', types[ext] || 'application/octet-stream');
-    res.end(fs.readFileSync(file));
+    const buf = fs.readFileSync(filePath);
+    res.end(buf);
   } catch (e) {
-    res.status(404).end();
+    res.status(500).end();
   }
 };
